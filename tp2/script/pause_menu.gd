@@ -2,17 +2,29 @@ extends Control
 
 func _ready() -> void:
 	$CanvasLayer/CenterContainer/AnimationPlayer.play("RESET")
+	_desactivation()
+	
+func _activation():
+	%quitter.disabled= false
+	%resume.disabled= false
+	%recommencer.disabled=false
 
+func _desactivation():
+	%quitter.disabled= true
+	%resume.disabled= true
+	%recommencer.disabled=true
 func _process(_delta: float) -> void:
 	testEsc()
 
 func resume() -> void:
 	get_tree().paused = false
 	$CanvasLayer/CenterContainer/AnimationPlayer.play_backwards("blur")
+	_desactivation()
 
 func paused() -> void:
 	get_tree().paused = true
 	$CanvasLayer/CenterContainer/AnimationPlayer.play("blur")
+	_activation()
 
 func testEsc() -> void:
 	if Input.is_action_just_pressed("pause"):

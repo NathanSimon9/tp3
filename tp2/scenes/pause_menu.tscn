@@ -292,6 +292,7 @@ theme_override_constants/separation = 50
 alignment = 1
 
 [node name="resume" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -303,6 +304,7 @@ text = "Resume"
 icon_alignment = 1
 
 [node name="recommencer" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -312,6 +314,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_myx47")
 text = "Recommencer"
 
 [node name="quitter" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 4
