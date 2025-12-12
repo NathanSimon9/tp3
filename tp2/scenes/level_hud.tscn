@@ -1,41 +1,8 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-[gd_scene load_steps=6 format=3 uid="uid://dhx8k2m5nqvpr"]
-
-[ext_resource type="Script" path="res://script/level_hud.gd" id="1_level_hud"]
-[ext_resource type="Texture2D" path="res://medias/ui/star_full.png" id="2_star_full"]
-[ext_resource type="Texture2D" path="res://medias/ui/star_empty.png" id="3_star_empty"]
-[ext_resource type="Texture2D" path="res://medias/ui/death_icon.png" id="4_death_icon"]
-=======
-=======
->>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
-=======
->>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
-=======
->>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
-=======
->>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
 [gd_scene load_steps=5 format=3 uid="uid://8480adhb03l2"]
 
 [ext_resource type="Script" uid="uid://c0s6qwcojchwp" path="res://script/level_hud.gd" id="1_level_hud"]
 [ext_resource type="Texture2D" uid="uid://elkcarshe6ak" path="res://medias/ui/star_full.png" id="2_star_full"]
 [ext_resource type="Texture2D" uid="uid://bvpf2qa2dpck4" path="res://medias/ui/death_icon.png" id="4_death_icon"]
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
-=======
->>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
-=======
->>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
-=======
->>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
-=======
->>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.12, 0.14, 0.2, 0.9)
@@ -57,26 +24,7 @@ layer = 10
 script = ExtResource("1_level_hud")
 
 [node name="TopRightContainer" type="Control" parent="."]
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 layout_mode = 3
->>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
-=======
-layout_mode = 3
->>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
-=======
-layout_mode = 3
->>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
-=======
-layout_mode = 3
->>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
-=======
-layout_mode = 3
->>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
