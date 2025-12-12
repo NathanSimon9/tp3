@@ -1,4 +1,24 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+extends CanvasLayer
+=======
 extends Node
+>>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
+=======
+extends Node
+>>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
+=======
+extends Node
+>>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
+=======
+extends Node
+>>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
+=======
+extends Node
+>>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
 
 # === HUD EN JEU - EN HAUT À DROITE ===
 # Affiche le timer et les étoiles potentielles en temps réel
