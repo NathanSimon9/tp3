@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=4 uid="uid://c81b0dc2qkmub"]
 
-[ext_resource type="Script" uid="uid://croohd43ejkjn" path="res://script/boss.gd" id="1_dlmty"]
+[ext_resource type="Script" uid="uid://c0s6qwcojchwp" path="res://script/level_hud.gd" id="1_5f346"]
 [ext_resource type="Texture2D" uid="uid://dh6dai82vvu35" path="res://medias/R.png" id="2_5f346"]
 [ext_resource type="Texture2D" uid="uid://bt8k2ei6ugph0" path="res://medias/spritesheet-tiles-default.png" id="2_neq0i"]
 [ext_resource type="PackedScene" uid="uid://3uog7aftmdeu" path="res://scenes/logique_personnages.tscn" id="3_jncid"]
@@ -693,7 +693,7 @@ _data = {
 }
 
 [node name="boss" type="Node2D"]
-script = ExtResource("1_dlmty")
+script = ExtResource("1_5f346")
 
 [node name="Background" type="Node2D" parent="."]
 modulate = Color(0.724643, 0.724643, 0.724643, 1)
@@ -2924,8 +2924,10 @@ position = Vector2(-3104.63, -709)
 shape = SubResource("RectangleShape2D_0onds")
 
 [node name="PauseMenu" parent="." instance=ExtResource("10_5f346")]
-offset_top = 3.0
-offset_bottom = 3.0
+offset_left = -24.0
+offset_top = 451.0
+offset_right = -24.0
+offset_bottom = 451.0
 
 [node name="AudioStreamPlayer2D11" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_0onds")
@@ -2940,11 +2942,12 @@ libraries = {
 [node name="ColorRect" type="ColorRect" parent="."]
 modulate = Color(0, 0, 0, 1)
 self_modulate = Color(0, 0, 0, 0)
-offset_left = -7410.0
-offset_top = -4028.0
-offset_right = 10107.0
-offset_bottom = 5611.0
+offset_left = -8695.0
+offset_top = -2787.0
+offset_right = 8822.0
+offset_bottom = 6852.0
 color = Color(0, 0, 0, 1)
+metadata/_edit_group_ = true
 
 [connection signal="body_entered" from="Area2D" to="Personnages" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="pique" to="Personnages" method="_on_area_2d_2_body_entered"]

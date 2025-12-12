@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dc2viuhtejl6n"]
 
-[ext_resource type="Script" uid="uid://co3s0advw04km" path="res://checkpoint.gd" id="1_ywqth"]
+[ext_resource type="Script" uid="uid://co3s0advw04km" path="res://script/checkpoint.gd" id="1_ywqth"]
 [ext_resource type="Texture2D" uid="uid://bt8k2ei6ugph0" path="res://medias/spritesheet-tiles-default.png" id="2_vsimk"]
 [ext_resource type="AudioStream" uid="uid://dp50poleo82y" path="res://sons/Firefly_audio_tading_variation4.wav" id="3_vsimk"]
 [ext_resource type="AudioStream" uid="uid://dehv6vog4a4c4" path="res://sons/Firefly_audio_pan_pan_pannn_variation1.wav" id="4_yqsag"]
