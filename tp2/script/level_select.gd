@@ -284,6 +284,7 @@ func _on_level_pressed(level_id: String, button_container: Control) -> void:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 func _on_back_button_pressed() -> void:
 	var exit_tween: Tween = create_tween()
 	exit_tween.tween_property(self, "modulate:a", 0.0, 0.3)
@@ -295,6 +296,8 @@ func _on_back_button_pressed() -> void:
 	else:
 		print("⚠️ Menu principal non trouvé")
 
+=======
+>>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
 =======
 >>>>>>> fc60fd1a0c6a3cc21bcf194eb91c1d795f9113b6
 =======
