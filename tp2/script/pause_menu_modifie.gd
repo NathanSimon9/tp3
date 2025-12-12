@@ -1,18 +1,25 @@
 extends Control
 
+# === PAUSE MENU AVEC BOUTON SÉLECTION NIVEAUX ===
+
 func _ready() -> void:
 	$CanvasLayer/CenterContainer/AnimationPlayer.play("RESET")
 	_desactivation()
 	
 func _activation():
-	%quitter.disabled= false
-	%resume.disabled= false
-	%recommencer.disabled=false
+	%quitter.disabled = false
+	%resume.disabled = false
+	%recommencer.disabled = false
+	if has_node("%niveaux"):
+		%niveaux.disabled = false
 
 func _desactivation():
-	%quitter.disabled= true
-	%resume.disabled= true
-	%recommencer.disabled=true
+	%quitter.disabled = true
+	%resume.disabled = true
+	%recommencer.disabled = true
+	if has_node("%niveaux"):
+		%niveaux.disabled = true
+
 func _process(_delta: float) -> void:
 	testEsc()
 
@@ -41,4 +48,12 @@ func _on_recommencer_pressed() -> void:
 	get_tree().reload_current_scene()
 
 func _on_quitter_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/level_select.tscn")
+	get_tree().quit()
+
+# === NOUVEAU: Bouton sélection des niveaux ===
+func _on_niveaux_pressed() -> void:
+	get_tree().paused = false
+	if ResourceLoader.exists("res://scenes/level_select.tscn"):
+		get_tree().change_scene_to_file("res://scenes/level_select.tscn")
+	else:
+		print("⚠️ Scène level_select.tscn non trouvée!")

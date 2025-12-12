@@ -1,0 +1,123 @@
+[gd_scene load_steps=5 format=3 uid="uid://8480adhb03l2"]
+
+[ext_resource type="Script" uid="uid://c0s6qwcojchwp" path="res://script/level_hud.gd" id="1_level_hud"]
+[ext_resource type="Texture2D" uid="uid://elkcarshe6ak" path="res://medias/ui/star_full.png" id="2_star_full"]
+[ext_resource type="Texture2D" uid="uid://bvpf2qa2dpck4" path="res://medias/ui/death_icon.png" id="4_death_icon"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.12, 0.14, 0.2, 0.9)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.3, 0.5, 0.8, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 4
+shadow_offset = Vector2(2, 2)
+
+[node name="LevelHUD" type="CanvasLayer" groups=["level_hud"]]
+layer = 10
+script = ExtResource("1_level_hud")
+
+[node name="TopRightContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 15.0
+offset_right = -15.0
+offset_bottom = 160.0
+grow_horizontal = 0
+
+[node name="MainPanel" type="PanelContainer" parent="TopRightContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TopRightContainer/MainPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StarsContainer" type="HBoxContainer" parent="TopRightContainer/MainPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="Star1" type="TextureRect" parent="TopRightContainer/MainPanel/VBoxContainer/StarsContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_star_full")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star2" type="TextureRect" parent="TopRightContainer/MainPanel/VBoxContainer/StarsContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_star_full")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star3" type="TextureRect" parent="TopRightContainer/MainPanel/VBoxContainer/StarsContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_star_full")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Separator1" type="HSeparator" parent="TopRightContainer/MainPanel/VBoxContainer"]
+modulate = Color(0.5, 0.6, 0.8, 0.5)
+layout_mode = 2
+
+[node name="TimerContainer" type="HBoxContainer" parent="TopRightContainer/MainPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="TimerIcon" type="Label" parent="TopRightContainer/MainPanel/VBoxContainer/TimerContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.9)
+theme_override_font_sizes/font_size = 22
+text = "⏱"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="TopRightContainer/MainPanel/VBoxContainer/TimerContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+text = "0:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DeathsContainer" type="HBoxContainer" parent="TopRightContainer/MainPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="DeathIcon" type="TextureRect" parent="TopRightContainer/MainPanel/VBoxContainer/DeathsContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_death_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DeathsLabel" type="Label" parent="TopRightContainer/MainPanel/VBoxContainer/DeathsContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
