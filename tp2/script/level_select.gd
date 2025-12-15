@@ -6,6 +6,8 @@ extends Control
 @onready var levels_container: GridContainer = $CanvasLayer/MainContainer/ContentContainer/LevelsContainer
 @onready var total_stars_label: Label = $CanvasLayer/MainContainer/TopBar/StarsPanel/HBox/TotalStars
 @onready var title_label: Label = $CanvasLayer/MainContainer/ContentContainer/TitleContainer/Title
+@onready var reset_button: Button = $CanvasLayer/MainContainer/TopBar/HBoxContainer/ResetButton
+@onready var back_button: Button = $CanvasLayer/MainContainer/TopBar/HBoxContainer/BackButton
 
 # Textures
 var star_full_texture: Texture2D
@@ -22,6 +24,9 @@ var time_passed: float = 0.0
 func _ready() -> void:
 	# Charger les textures
 	_load_textures()
+	
+	# Remplacer les emojis par du texte/icônes pour la version web
+	_setup_ui_icons()
 	
 	# Initialiser avec animation
 	modulate.a = 0
@@ -42,25 +47,76 @@ func _load_textures() -> void:
 		star_empty_texture = load("res://medias/ui/star_empty.png")
 	
 	# Icône arbre pour niveau 1
-	if ResourceLoader.exists("res://medias/Default/treePine.png"):
+	if ResourceLoader.exists("res://medias/ui/level_select/treePine.png"):
+		tree_texture = load("res://medias/ui/level_select/treePine.png")
+	elif ResourceLoader.exists("res://medias/Default/treePine.png"):
 		tree_texture = load("res://medias/Default/treePine.png")
 	
 	# Icône château pour niveau 2
-	if ResourceLoader.exists("res://medias/Default/castleSmall.png"):
+	if ResourceLoader.exists("res://medias/ui/level_select/castleSmall.png"):
+		castle_texture = load("res://medias/ui/level_select/castleSmall.png")
+	elif ResourceLoader.exists("res://medias/Default/castleSmall.png"):
 		castle_texture = load("res://medias/Default/castleSmall.png")
-	
-	# Icône cadenas pour niveaux verrouillés
-	if ResourceLoader.exists("res://medias/kenney_game-icons/PNG/White/2x/locked.png"):
-		lock_texture = load("res://medias/kenney_game-icons/PNG/White/2x/locked.png")
 	
 	# Charger la texture zombie (première frame du sprite sheet)
 	if ResourceLoader.exists("res://medias/ui/level_select/character_zombie_sheet.png"):
 		var full_sheet: Texture2D = load("res://medias/ui/level_select/character_zombie_sheet.png")
 		var atlas: AtlasTexture = AtlasTexture.new()
 		atlas.atlas = full_sheet
-		# Première frame du zombie (typiquement 96x128 pour les sprites Kenney)
 		atlas.region = Rect2(0, 0, 96, 128)
 		zombie_texture = atlas
+
+func _setup_ui_icons() -> void:
+	# === TITRE - Remplacer les emojis épées par des étoiles ===
+	if title_label:
+		var parent = title_label.get_parent()
+		
+		# Créer un nouveau HBoxContainer pour le titre avec étoiles
+		var new_title_container: HBoxContainer = HBoxContainer.new()
+		new_title_container.alignment = BoxContainer.ALIGNMENT_CENTER
+		new_title_container.add_theme_constant_override("separation", 15)
+		new_title_container.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		new_title_container.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		
+		# Étoile gauche
+		if star_full_texture:
+			var star_left: TextureRect = TextureRect.new()
+			star_left.texture = star_full_texture
+			star_left.custom_minimum_size = Vector2(32, 32)
+			star_left.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			star_left.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			new_title_container.add_child(star_left)
+		
+		# Texte du titre
+		var title_text: Label = Label.new()
+		title_text.text = "Selection des Niveaux"
+		title_text.add_theme_font_size_override("font_size", 36)
+		title_text.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+		title_text.add_theme_color_override("font_shadow_color", Color(0, 0.1, 0, 0.9))
+		title_text.add_theme_constant_override("shadow_offset_x", 3)
+		title_text.add_theme_constant_override("shadow_offset_y", 3)
+		new_title_container.add_child(title_text)
+		
+		# Étoile droite
+		if star_full_texture:
+			var star_right: TextureRect = TextureRect.new()
+			star_right.texture = star_full_texture
+			star_right.custom_minimum_size = Vector2(32, 32)
+			star_right.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			star_right.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			new_title_container.add_child(star_right)
+		
+		# Remplacer l'ancien titre
+		title_label.queue_free()
+		parent.add_child(new_title_container)
+	
+	# === BOUTON RESET - Texte simple ===
+	if reset_button:
+		reset_button.text = "Reset"
+	
+	# === BOUTON MENU - Texte simple avec flèche ASCII ===
+	if back_button:
+		back_button.text = "< Menu"
 
 func _play_intro_animation() -> void:
 	# Fade in général
@@ -277,9 +333,10 @@ func _create_level_button(level_id: String) -> Control:
 			var star_label: Label = Label.new()
 			star_label.add_theme_font_size_override("font_size", 24)
 			if is_unlocked and i < stars:
-				star_label.text = "⭐"
+				star_label.text = "*"
+				star_label.add_theme_color_override("font_color", Color(1, 0.85, 0.2, 1))
 			else:
-				star_label.text = "☆"
+				star_label.text = "*"
 				star_label.modulate = Color(0.5, 0.5, 0.5, 0.6)
 			stars_container.add_child(star_label)
 	
