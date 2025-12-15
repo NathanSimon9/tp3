@@ -291,7 +291,7 @@ func _create_level_button(level_id: String) -> Control:
 		if best_time < 999999:
 			var time_label: Label = Label.new()
 			time_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			time_label.text = "⏱ " + _format_time(best_time)
+			time_label.text = "Temps: " + _format_time(best_time)
 			time_label.add_theme_font_size_override("font_size", 16)
 			time_label.add_theme_color_override("font_color", Color(0.9, 0.95, 1.0, 0.9))
 			vbox.add_child(time_label)
