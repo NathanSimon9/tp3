@@ -543,6 +543,13 @@ func _trigger_victory_sequence():
 	
 	print("🎉 DÉCLENCHEMENT SÉQUENCE VICTOIRE")
 	
+	# === NOUVEAU: COMPLÉTER LE NIVEAU BOSS ===
+	if has_node("/root/GameManager"):
+		print("🏆 Appel de GameManager.complete_level() pour le boss")
+		GameManager.complete_level()
+	else:
+		print("⚠️ GameManager non trouvé!")
+	
 	if player and is_instance_valid(player):
 		print("🧊 Tentative de figer le joueur...")
 		if "can_move" in player:
