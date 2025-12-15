@@ -10,9 +10,10 @@ extends Control
 # Textures
 var star_full_texture: Texture2D
 var star_empty_texture: Texture2D
-var lock_texture: Texture2D
+var zombie_texture: Texture2D
 var tree_texture: Texture2D
 var castle_texture: Texture2D
+var lock_texture: Texture2D
 
 # Animation
 var level_buttons: Array[Control] = []
@@ -35,26 +36,31 @@ func _process(delta: float) -> void:
 	time_passed += delta
 
 func _load_textures() -> void:
-	# Étoiles
-	if ResourceLoader.exists("res://medias/kenney_ui-pack/PNG/Yellow/Double/star.png"):
-		star_full_texture = load("res://medias/kenney_ui-pack/PNG/Yellow/Double/star.png")
-	elif ResourceLoader.exists("res://medias/ui/star_full.png"):
+	if ResourceLoader.exists("res://medias/ui/star_full.png"):
 		star_full_texture = load("res://medias/ui/star_full.png")
-	
-	if ResourceLoader.exists("res://medias/kenney_ui-pack/PNG/Grey/Double/star_outline.png"):
-		star_empty_texture = load("res://medias/kenney_ui-pack/PNG/Grey/Double/star_outline.png")
-	elif ResourceLoader.exists("res://medias/ui/star_empty.png"):
+	if ResourceLoader.exists("res://medias/ui/star_empty.png"):
 		star_empty_texture = load("res://medias/ui/star_empty.png")
 	
-	# Cadenas
+	# Icône arbre pour niveau 1
+	if ResourceLoader.exists("res://medias/Default/treePine.png"):
+		tree_texture = load("res://medias/Default/treePine.png")
+	
+	# Icône château pour niveau 2
+	if ResourceLoader.exists("res://medias/Default/castleSmall.png"):
+		castle_texture = load("res://medias/Default/castleSmall.png")
+	
+	# Icône cadenas pour niveaux verrouillés
 	if ResourceLoader.exists("res://medias/kenney_game-icons/PNG/White/2x/locked.png"):
 		lock_texture = load("res://medias/kenney_game-icons/PNG/White/2x/locked.png")
 	
-	# Icônes de niveau
-	if ResourceLoader.exists("res://medias/Default/treePine.png"):
-		tree_texture = load("res://medias/Default/treePine.png")
-	if ResourceLoader.exists("res://medias/Default/castleSmall.png"):
-		castle_texture = load("res://medias/Default/castleSmall.png")
+	# Charger la texture zombie (première frame du sprite sheet)
+	if ResourceLoader.exists("res://medias/ui/level_select/character_zombie_sheet.png"):
+		var full_sheet: Texture2D = load("res://medias/ui/level_select/character_zombie_sheet.png")
+		var atlas: AtlasTexture = AtlasTexture.new()
+		atlas.atlas = full_sheet
+		# Première frame du zombie (typiquement 96x128 pour les sprites Kenney)
+		atlas.region = Rect2(0, 0, 96, 128)
+		zombie_texture = atlas
 
 func _play_intro_animation() -> void:
 	# Fade in général
@@ -149,57 +155,72 @@ func _create_level_button(level_id: String) -> Control:
 	var icon_container: CenterContainer = CenterContainer.new()
 	
 	if not is_unlocked:
-		# Cadenas pour niveau verrouillé
+		# Icône cadenas pour niveau verrouillé
 		if lock_texture:
 			var lock_icon: TextureRect = TextureRect.new()
 			lock_icon.texture = lock_texture
 			lock_icon.custom_minimum_size = Vector2(48, 48)
 			lock_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			lock_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			lock_icon.modulate = Color(0.7, 0.7, 0.7, 1)
+			lock_icon.modulate = Color(0.6, 0.6, 0.6, 1)
 			icon_container.add_child(lock_icon)
 		else:
-			var lock_label: Label = Label.new()
-			lock_label.text = "[X]"
-			lock_label.add_theme_font_size_override("font_size", 42)
-			lock_label.modulate = Color(0.7, 0.7, 0.7, 1)
-			icon_container.add_child(lock_label)
-	else:
-		# Icône selon le niveau
-		var has_icon: bool = false
-		
-		if level_id == "niveau_1" and tree_texture:
-			var icon: TextureRect = TextureRect.new()
-			icon.texture = tree_texture
-			icon.custom_minimum_size = Vector2(48, 64)
-			icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-			icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			icon_container.add_child(icon)
-			has_icon = true
-		elif level_id == "niveau_2" and castle_texture:
-			var icon: TextureRect = TextureRect.new()
-			icon.texture = castle_texture
-			icon.custom_minimum_size = Vector2(64, 48)
-			icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-			icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			icon_container.add_child(icon)
-			has_icon = true
-		
-		if not has_icon:
 			var level_icon: Label = Label.new()
 			level_icon.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			level_icon.add_theme_font_size_override("font_size", 32)
-			if level_id == "boss":
+			level_icon.add_theme_font_size_override("font_size", 42)
+			level_icon.text = "[X]"
+			level_icon.modulate = Color(0.7, 0.7, 0.7, 1)
+			icon_container.add_child(level_icon)
+	else:
+		if level_id == "boss":
+			# Icône zombie pour le boss
+			if zombie_texture:
+				var zombie_icon: TextureRect = TextureRect.new()
+				zombie_icon.texture = zombie_texture
+				zombie_icon.custom_minimum_size = Vector2(64, 85)
+				zombie_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+				zombie_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+				zombie_icon.modulate = Color(1.2, 0.8, 0.8, 1)
+				icon_container.add_child(zombie_icon)
+			else:
+				var level_icon: Label = Label.new()
+				level_icon.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+				level_icon.add_theme_font_size_override("font_size", 32)
 				level_icon.text = "BOSS"
 				level_icon.add_theme_color_override("font_color", Color(1, 0.3, 0.3, 1))
-			elif level_id == "niveau_2":
+				icon_container.add_child(level_icon)
+		elif level_id == "niveau_2":
+			# Icône château pour niveau 2
+			if castle_texture:
+				var castle_icon: TextureRect = TextureRect.new()
+				castle_icon.texture = castle_texture
+				castle_icon.custom_minimum_size = Vector2(64, 48)
+				castle_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+				castle_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+				icon_container.add_child(castle_icon)
+			else:
+				var level_icon: Label = Label.new()
+				level_icon.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+				level_icon.add_theme_font_size_override("font_size", 42)
 				level_icon.text = "II"
 				level_icon.add_theme_color_override("font_color", Color(0.9, 0.85, 0.6, 1))
+				icon_container.add_child(level_icon)
+		else:
+			# Icône arbre pour niveau 1
+			if tree_texture:
+				var tree_icon: TextureRect = TextureRect.new()
+				tree_icon.texture = tree_texture
+				tree_icon.custom_minimum_size = Vector2(48, 64)
+				tree_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+				tree_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+				icon_container.add_child(tree_icon)
 			else:
+				var level_icon: Label = Label.new()
+				level_icon.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+				level_icon.add_theme_font_size_override("font_size", 42)
 				level_icon.text = "I"
 				level_icon.add_theme_color_override("font_color", Color(0.6, 0.9, 0.6, 1))
-			icon_container.add_child(level_icon)
-	
+				icon_container.add_child(level_icon)
 	vbox.add_child(icon_container)
 	
 	# Nom du niveau
@@ -223,17 +244,8 @@ func _create_level_button(level_id: String) -> Control:
 		req_container.alignment = BoxContainer.ALIGNMENT_CENTER
 		req_container.add_theme_constant_override("separation", 5)
 		
-		# Ajouter une petite étoile avant le texte
-		if star_full_texture:
-			var small_star: TextureRect = TextureRect.new()
-			small_star.texture = star_full_texture
-			small_star.custom_minimum_size = Vector2(16, 16)
-			small_star.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-			small_star.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			req_container.add_child(small_star)
-		
 		var req_label: Label = Label.new()
-		req_label.text = str(stars_required) + " requises"
+		req_label.text = str(stars_required) + " etoiles requises"
 		req_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		req_label.add_theme_font_size_override("font_size", 14)
 		req_label.add_theme_color_override("font_color", Color(1, 0.85, 0.3, 1))
@@ -265,10 +277,9 @@ func _create_level_button(level_id: String) -> Control:
 			var star_label: Label = Label.new()
 			star_label.add_theme_font_size_override("font_size", 24)
 			if is_unlocked and i < stars:
-				star_label.text = "*"
-				star_label.add_theme_color_override("font_color", Color(1, 0.9, 0.2, 1))
+				star_label.text = "⭐"
 			else:
-				star_label.text = "o"
+				star_label.text = "☆"
 				star_label.modulate = Color(0.5, 0.5, 0.5, 0.6)
 			stars_container.add_child(star_label)
 	
@@ -280,7 +291,7 @@ func _create_level_button(level_id: String) -> Control:
 		if best_time < 999999:
 			var time_label: Label = Label.new()
 			time_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			time_label.text = "Temps: " + _format_time(best_time)
+			time_label.text = "⏱ " + _format_time(best_time)
 			time_label.add_theme_font_size_override("font_size", 16)
 			time_label.add_theme_color_override("font_color", Color(0.9, 0.95, 1.0, 0.9))
 			vbox.add_child(time_label)
@@ -355,7 +366,7 @@ func _on_back_button_pressed() -> void:
 	if ResourceLoader.exists("res://scenes/menu_principal.tscn"):
 		get_tree().change_scene_to_file("res://scenes/menu_principal.tscn")
 	else:
-		print("Menu principal non trouve")
+		print("⚠️ Menu principal non trouvé")
 
 func _on_reset_button_pressed() -> void:
 	# Animation de shake sur les boutons
