@@ -49,6 +49,7 @@ Rammasser toutes les pieces sans perdre ses trois vies pour gagner le niveau. Il
  - **Scène PauseMenu**
  - **StaticBody2D** *pour mettre des mures invisible*
  - **canvasLayer** *pour les label de victoir et defaite*
+ - **LevelHUD** pour le timer et les étoiles
 
  # niveau 2
  *node principale*
@@ -73,6 +74,7 @@ Rammasser toutes les pieces sans perdre ses trois vies pour gagner le niveau. Il
  - **Scène Node2D2** *mes ressorts*
  - **ScènePauseMenu** *Pour mon menu*
  - **Deux Scène Checkpoint** *Pour Détecter les checkpoints*
+ - **LevelHUD** pour le timer et les étoiles
 
 # niveau 3
  *node principale*
