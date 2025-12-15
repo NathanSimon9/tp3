@@ -98,8 +98,8 @@ Rammasser toutes les pieces sans perdre ses trois vies pour gagner le niveau. Il
 
 *Les autre scène son simple. Elles sont un seul node avec son collision shape et une animation au besoin avec un code attaché au parent*
 
-**crédits**
-médias - kenney.nl
+**crédits**<br>
+médias - kenney.nl<br>
 médias sonores - suno.ai
 
 
